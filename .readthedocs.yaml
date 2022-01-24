@@ -2,6 +2,6 @@ version: 2
 
 python:
   install:
-    - method: pip
+    - method: setuptools
       path: .
   system_packages: true
