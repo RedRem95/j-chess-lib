@@ -1,6 +1,10 @@
 j\_chess\_lib.communication.schema package
 ==========================================
 
+This package contains classes created using the j-chess-xsd_
+
+.. _j-chess-xsd: https://github.com/JoKrus/j-chess-xsd
+
 Submodules
 ----------
 
