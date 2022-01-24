@@ -8,6 +8,7 @@ Installation
 Stable release
 --------------
 
+TODO
 To install j-chess-lib, run this command in your terminal:
 
 .. code-block:: console

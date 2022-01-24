@@ -7,15 +7,17 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
+   j_chess_lib.ai
+   j_chess_lib.client
    j_chess_lib.communication
 
 Submodules
 ----------
 
-j\_chess\_lib.j\_chess\_lib module
-----------------------------------
+j\_chess\_lib.main module
+-------------------------
 
-.. automodule:: j_chess_lib.j_chess_lib
+.. automodule:: j_chess_lib.main
    :members:
    :undoc-members:
    :show-inheritance:
