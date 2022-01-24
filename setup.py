@@ -3,6 +3,19 @@
 """The setup script."""
 
 from setuptools import setup, find_packages
+from setuptools.command import build_py
+
+
+class BuildExtension(build_py.build_py):
+
+    def run(self):
+        import os
+        xsd_url = os.environ.get("j-chess-xsd-url", "https://raw.githubusercontent.com/JoKrus/j-chess-xsd/master/jChessMessage.xsd")
+        os.system("rm -rf j_chess_lib/communication/schema")
+        print("Removed old schema data")
+        os.system("xsdata %s --package j_chess_lib.communication.schema" % xsd_url)
+        print("Installed new schema data")
+
 
 with open('README.rst') as readme_file:
     readme = readme_file.read()
@@ -41,4 +54,7 @@ setup(
     url='https://github.com/RedRem95/j_chess_lib',
     version='0.1.0',
     zip_safe=False,
+    cmdclass={
+        'build_py': BuildExtension,
+    },
 )
