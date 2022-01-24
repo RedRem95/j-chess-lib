@@ -2,9 +2,9 @@ from typing import Optional
 from uuid import UUID, uuid4
 from queue import Queue
 
-from . import StoreAI
-from .Container import GameState
-from ..communication import MoveData, MatchStatusData, MatchFormatData
+from j_chess_lib.ai import StoreAI
+from j_chess_lib.ai.Container import GameState
+from j_chess_lib.communication import MoveData, MatchStatusData, MatchFormatData
 
 
 class SampleAI(StoreAI):
@@ -12,7 +12,7 @@ class SampleAI(StoreAI):
     _COUNTER = 1
 
     def __init__(self):
-        super().__init__(name=f"Sample-{self.__class__._COUNTER}")
+        super(SampleAI, self).__init__(name=f"Sample-{self.__class__._COUNTER}")
         self.__class__._COUNTER += 1
         self._w_q = Queue()
         self._b_q = Queue()

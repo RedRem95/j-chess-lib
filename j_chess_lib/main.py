@@ -1,11 +1,11 @@
-from j_chess_lib.communication import *
+from j_chess_lib.communication import Connection
 from j_chess_lib.client import Client
 
 
 if __name__ == "__main__":
 
-    with Connection() as connection1:
-        with Connection() as connection2:
+    with Connection("localhost", 5123) as connection1:
+        with Connection("localhost", 5123) as connection2:
 
             from j_chess_lib.ai.Sample import SampleAI
 
