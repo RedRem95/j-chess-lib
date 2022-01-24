@@ -31,15 +31,13 @@ Features
 Install
 -------
 
-Installation is currently only possible from source.
-When within your desired environment do
+PyPi package is comeing soon. Until then installation is done via
 
 .. code-block::
 
-    $make install
+    $pip install git+https://github.com/RedRem95/j-chess-lib.git
 
-A pypi installation is coming tho
-this will fetch the latest schema from j-chess-xsd_ and build the needed classes from them.
+
 See Installation_ for detailed instructions
 
 Usage

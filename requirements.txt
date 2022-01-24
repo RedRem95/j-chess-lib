@@ -1,1 +1,1 @@
-xsdata[lxml,soap]
+xsdata[cli,lxml,soap]

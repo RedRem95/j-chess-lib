@@ -6,15 +6,19 @@ from setuptools import setup, find_packages
 from setuptools.command import build_py
 
 
-class BuildExtension(build_py.build_py):
+class InstallSchema(build_py.build_py):
 
     def run(self):
+        print("-" * 10, "schema install", "-" * 10)
         import os
-        xsd_url = os.environ.get("j-chess-xsd-url", "https://raw.githubusercontent.com/JoKrus/j-chess-xsd/master/jChessMessage.xsd")
+        xsd_url = os.environ.get("j-chess-xsd-url",
+                                 "https://raw.githubusercontent.com/JoKrus/j-chess-xsd/master/jChessMessage.xsd")
         os.system("rm -rf j_chess_lib/communication/schema")
         print("Removed old schema data")
+        print("Load schema data from %s and install them" % xsd_url)
         os.system("xsdata %s --package j_chess_lib.communication.schema" % xsd_url)
         print("Installed new schema data")
+        print("-" * 10, "schema install", "-" * 10)
 
 
 with open('README.rst') as readme_file:
@@ -55,6 +59,6 @@ setup(
     version='0.1.0',
     zip_safe=False,
     cmdclass={
-        'build_py': BuildExtension,
+        'build_py': InstallSchema,
     },
 )
