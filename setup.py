@@ -4,21 +4,24 @@
 
 from setuptools import setup, find_packages
 from setuptools.command import build_py
+import os
+
+schema_package = os.environ.get("j-chess-schema-package", "j_chess_lib.communication.schema")
 
 
 class InstallSchema(build_py.build_py):
 
     def run(self):
         print("-" * 10, "schema install", "-" * 10)
-        import os
         xsd_url = os.environ.get("j-chess-xsd-url",
                                  "https://raw.githubusercontent.com/JoKrus/j-chess-xsd/master/jChessMessage.xsd")
         os.system("rm -rf j_chess_lib/communication/schema")
         print("Removed old schema data")
         print("Load schema data from %s and install them" % xsd_url)
-        os.system("xsdata %s --package j_chess_lib.communication.schema" % xsd_url)
+        os.system("xsdata %s --package %s" % (xsd_url, schema_package))
         print("Installed new schema data")
         print("-" * 10, "schema install", "-" * 10)
+        super(InstallSchema, self).run()
 
 
 with open('README.rst') as readme_file:
@@ -52,7 +55,7 @@ setup(
     include_package_data=True,
     keywords='j_chess_lib',
     name='j_chess_lib',
-    packages=find_packages(include=['j_chess_lib', 'j_chess_lib.*']),
+    packages=find_packages(include=['j_chess_lib', 'j_chess_lib.*']) + [schema_package],
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/RedRem95/j_chess_lib',
