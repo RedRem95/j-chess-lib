@@ -5,7 +5,7 @@
 
 import unittest
 
-from j_chess_lib import j_chess_lib
+from j_chess_lib import main
 
 
 class TestJ_chess_lib(unittest.TestCase):
