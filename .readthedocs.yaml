@@ -2,7 +2,6 @@ version: 2
 
 python:
     install:
-        -   requirements: requirements.txt
         -   requirements: requirements_dev.txt
         -   method: setuptools
             path: .
