@@ -1,7 +1,9 @@
 version: 2
 
 python:
-  install:
-    - method: setuptools
-      path: .
+    install:
+        -   requirements: requirements.txt
+        -   requirements: requirements_dev.txt
+        -   method: setuptools
+            path: .
   system_packages: true
