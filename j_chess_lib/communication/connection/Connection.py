@@ -1,10 +1,10 @@
-from typing import Union, Literal
 import socket
+from typing import Union
 
+from xsdata.exceptions import ParserError
 from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
-from xsdata.exceptions import ParserError
 
 from .. import JchessMessage
 
@@ -22,9 +22,8 @@ class ConnectionDecodeError(Exception):
 
 
 class Connection:
-
     _PREFIX_BYTES = 4
-    _ENDIAN_TYPE: Literal["little", "big"] = "big"
+    _ENDIAN_TYPE = "big"
 
     def __init__(self, address: str, port: int):
         self._conn = socket.create_connection(address=(address, port))
