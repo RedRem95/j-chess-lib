@@ -1,26 +1,49 @@
 #!/usr/bin/env python
 
 """The setup script."""
-
-from setuptools import setup, find_packages
-from setuptools.command import build_py
 import os
+from distutils.dist import Distribution
+from typing import Any
+
+from setuptools import Command
+from setuptools import setup, find_packages
 
 schema_package = os.environ.get("j-chess-schema-package", "j_chess_lib.communication.schema")
+os.makedirs(schema_package.replace(".", "/"), exist_ok=True)
 
 
-class InstallSchema(build_py.build_py):
+def install_schema_package():
+    print("-" * 10, "schema install", "-" * 10)
+    xsd_url = os.environ.get("j-chess-xsd-url",
+                             "https://raw.githubusercontent.com/JoKrus/j-chess-xsd/master/jChessMessage.xsd")
+    import subprocess
+    try:
+        subprocess.run(["rm", "-rf", "j_chess_lib/communication/schema"], check=True)
+        print("Removed old schema data")
+    except subprocess.CalledProcessError:
+        pass
+    print("Load schema data from %s and install them" % xsd_url)
+    subprocess.run(["xsdata", xsd_url, "--package", schema_package], check=True)
+    print("Installed new schema data")
+    print("-" * 10, "schema install", "-" * 10)
+
+
+install_schema_package()
+
+
+class InstallSchema(Command):
+
+    def __init__(self, dist: Distribution, **kw: Any):
+        super().__init__(dist, **kw)
+
+    def finalize_options(self) -> None:
+        pass
+
+    def initialize_options(self) -> None:
+        pass
 
     def run(self):
-        print("-" * 10, "schema install", "-" * 10)
-        xsd_url = os.environ.get("j-chess-xsd-url",
-                                 "https://raw.githubusercontent.com/JoKrus/j-chess-xsd/master/jChessMessage.xsd")
-        os.system("rm -rf j_chess_lib/communication/schema")
-        print("Removed old schema data")
-        print("Load schema data from %s and install them" % xsd_url)
-        os.system("xsdata %s --package %s" % (xsd_url, schema_package))
-        print("Installed new schema data")
-        print("-" * 10, "schema install", "-" * 10)
+        install_schema_package()
         super(InstallSchema, self).run()
 
 
@@ -61,7 +84,5 @@ setup(
     url='https://github.com/RedRem95/j_chess_lib',
     version='0.2.1',
     zip_safe=False,
-    cmdclass={
-        'build_py': InstallSchema,
-    },
+    # cmdclass={},
 )
