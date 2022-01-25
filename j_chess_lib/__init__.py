@@ -1,7 +1,7 @@
 """Top-level package for j-chess-lib."""
 from .communication import schema_version
 
-__author__ = """Alexander Vollmer"""
+__author__ = """RedRem95"""
 __version__ = '0.2.4'
 __schema_version__ = schema_version
 

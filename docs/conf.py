@@ -47,8 +47,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'j-chess-lib'
-copyright = "2022, Alexander Vollmer"
-author = "Alexander Vollmer"
+copyright = "2022, RedRem95"
+author = "RedRem95"
 
 # The version info for the project you're documenting, acts as replacement
 # for |version| and |release|, also used in various other places throughout
@@ -129,7 +129,7 @@ latex_elements = {
 latex_documents = [
     (master_doc, 'j_chess_lib.tex',
      'j-chess-lib Documentation',
-     'Alexander Vollmer', 'manual'),
+     'RedRem95', 'manual'),
 ]
 
 

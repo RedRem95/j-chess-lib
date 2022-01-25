@@ -12,4 +12,15 @@ History
 
 * Implemented basic api. Still some features to do
 
+0.2.0 (2022-01-24)
+------------------
+
+* Added more docu
+* Added readthedocs build config
+
+0.2.4 (2022-01-24)
+------------------
+
+* Fixed setup.py so it automatically loads xsd and installs classes based on them
+
 

@@ -90,7 +90,7 @@ with open('requirements.txt') as requirements_file:
 test_requirements = []
 
 setup(
-    author="Alexander Vollmer",
+    author="RedRem95",
     python_requires='>=3.6',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
