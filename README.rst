@@ -35,7 +35,7 @@ PyPi package is comeing soon. Until then installation is done via
 
 .. code-block::
 
-    $ pip install git+https://github.com/RedRem95/j-chess-lib.git
+    $ pip install j-chess-lib
 
 
 See Installation_ for detailed instructions

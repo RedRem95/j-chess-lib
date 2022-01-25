@@ -84,9 +84,7 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-with open('requirements.txt') as requirements_file:
-    requirements = requirements_file.readlines()
-
+requirements = ["xsdata[cli,lxml,soap]"]
 test_requirements = []
 
 setup(
@@ -101,6 +99,7 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
     ],
     description="Python library for a j-chess bot. Beep Boop",
     install_requires=requirements,
@@ -114,6 +113,6 @@ setup(
     tests_require=test_requirements,
     url='https://github.com/RedRem95/j_chess_lib',
     version='0.2.4',
-    zip_safe=False,
+    zip_safe=True,
     cmdclass=cmd_classes,
 )

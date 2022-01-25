@@ -8,14 +8,19 @@ Installation
 Stable release
 --------------
 
-TODO
 To install j-chess-lib, run this command in your terminal:
+
+.. code-block:: console
+
+    $ pip install j-chess-lib
+
+or
 
 .. code-block:: console
 
     $ pip install git+https://github.com/RedRem95/j-chess-lib.git
 
-This is the preferred method to install j-chess-lib, as it will always install the most recent stable release.
+These are the preferred methods to install j-chess-lib, as it will always install the most recent stable release.
 
 If you don't have `pip`_ installed, this `Python installation guide`_ can guide
 you through the process.
