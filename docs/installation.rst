@@ -13,7 +13,7 @@ To install j-chess-lib, run this command in your terminal:
 
 .. code-block:: console
 
-    $ pip install j_chess_lib
+    $ pip install git+https://github.com/RedRem95/j-chess-lib.git
 
 This is the preferred method to install j-chess-lib, as it will always install the most recent stable release.
 
