@@ -1,3 +1,4 @@
+import logging
 import socket
 from typing import Union
 
@@ -7,6 +8,8 @@ from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
 
 from .. import JchessMessage
+
+_logger = logging.getLogger("j_chess_lib")
 
 
 class ConnectionDecodeError(Exception):
@@ -25,7 +28,7 @@ class Connection:
     _PREFIX_BYTES = 4
     _ENDIAN_TYPE = "big"
 
-    def __init__(self, address: str, port: int):
+    def __init__(self, address: str = "localhost", port: int = 5321):
         self._conn = socket.create_connection(address=(address, port))
         self._xml_parse = XmlParser()
         self._xml_serialize = XmlSerializer(config=SerializerConfig(pretty_print=False))
@@ -34,7 +37,7 @@ class Connection:
         return self
 
     def disconnect(self):
-        print("Disconnecting from connection")
+        _logger.info("Disconnecting from connection")
         self._conn.close()
 
     def __exit__(self, exc_type, exc_val, exc_tb):
