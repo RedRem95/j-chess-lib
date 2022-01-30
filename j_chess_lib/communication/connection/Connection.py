@@ -28,7 +28,7 @@ class Connection:
     _PREFIX_BYTES = 4
     _ENDIAN_TYPE = "big"
 
-    def __init__(self, address: str, port: int):
+    def __init__(self, address: str = "localhost", port: int = 5321):
         self._conn = socket.create_connection(address=(address, port))
         self._xml_parse = XmlParser()
         self._xml_serialize = XmlSerializer(config=SerializerConfig(pretty_print=False))
