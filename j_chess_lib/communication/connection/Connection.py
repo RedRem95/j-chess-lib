@@ -1,3 +1,4 @@
+import logging
 import socket
 from typing import Union
 
@@ -7,6 +8,8 @@ from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
 
 from .. import JchessMessage
+
+_logger = logging.getLogger("j_chess_lib")
 
 
 class ConnectionDecodeError(Exception):
@@ -34,7 +37,7 @@ class Connection:
         return self
 
     def disconnect(self):
-        print("Disconnecting from connection")
+        _logger.info("Disconnecting from connection")
         self._conn.close()
 
     def __exit__(self, exc_type, exc_val, exc_tb):

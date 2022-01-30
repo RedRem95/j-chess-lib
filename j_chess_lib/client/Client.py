@@ -1,12 +1,15 @@
+import logging
+import queue
+import threading
 from typing import Optional
 from uuid import uuid4, UUID
-import threading
-import queue
 
+from .Exceptions import UnhandledMessageError, LoginFailedError, InterruptClient
+from ..ai import AI
 from ..communication import Connection, JchessMessage, JchessMessageType
 from ..communication.schema import LoginMessage
-from ..ai import AI
-from .Exceptions import UnhandledMessageError, LoginFailedError, InterruptClient
+
+_logger = logging.getLogger("j_chess_lib")
 
 
 class Client(threading.Thread):
@@ -40,7 +43,7 @@ class Client(threading.Thread):
             def run(self) -> None:
                 while True:
                     message = self._connection.recv()
-                    # print("MESSAGE", message)
+                    # _logger.info("MESSAGE", message)
                     self._recv_queue.put(message)
 
         send_thread = SendThread(_connection=connection, _send_queue=self._send_queue)
@@ -86,9 +89,10 @@ class Client(threading.Thread):
             # --Region Login--
             new_id = self._handle_login()
             if new_id is None:
-                print("Login failed")
+                _logger.info("Login failed")
                 raise LoginFailedError()
-            print(f"Login success{f' id changed {self._id} -> {new_id}'}" if self._id != new_id else '')
+            _logger.info(f"Login success{f' id changed {self._id} -> {new_id}'}" if self._id != new_id else '',
+                         extra={"AI": self._ai, "Connection": self._connection})
             self._original_id = self._id
             self._id = new_id
             # --Region Login--
@@ -99,8 +103,8 @@ class Client(threading.Thread):
                     self._handle_match(message=message)
 
         except InterruptClient as e:
-            print("Client interrupeted and killed")
-            print(f"Cause: {e}")
+            _logger.error("Client interrupeted and killed", extra={"AI": self._ai, "Connection": self._connection})
+            _logger.error(f"Cause: {e}", extra={"AI": self._ai, "Connection": self._connection})
 
     def _intercept_disconnect(self, message: JchessMessage) -> Optional[JchessMessage]:
         if message is None:
@@ -113,7 +117,7 @@ class Client(threading.Thread):
         if message is None:
             return message
         if message.message_type == JchessMessageType.HEART_BEAT:
-            print("Received a heartbeat")
+            _logger.debug("Received a heartbeat", extra={"AI": self._ai, "Connection": self._connection})
             return None
         return message
 
