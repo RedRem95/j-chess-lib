@@ -21,7 +21,7 @@ class Client(threading.Thread):
         self._connection = connection
         self._send_queue: queue.Queue[JchessMessage] = queue.Queue()
         self._recv_queue: queue.Queue[JchessMessage] = queue.Queue()
-        super().__init__(daemon=False, name=f"ClientThread-{ai.name}")
+        super().__init__(daemon=True, name=f"ClientThread-{ai.name}")
 
         class SendThread(threading.Thread):
             def __init__(self, _connection: Connection, _send_queue: queue.Queue[JchessMessage]):
