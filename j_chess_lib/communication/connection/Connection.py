@@ -28,10 +28,14 @@ class Connection:
     _PREFIX_BYTES = 4
     _ENDIAN_TYPE = "big"
 
-    def __init__(self, address: str = "localhost", port: int = 5321):
+    def __init__(self, address: str = "localhost", port: int = 5123):
+        self._address = address
+        self._port = port
         self._conn = socket.create_connection(address=(address, port))
         self._xml_parse = XmlParser()
         self._xml_serialize = XmlSerializer(config=SerializerConfig(pretty_print=False))
+        self._send_count = 0
+        self._recv_count = 0
 
     def __enter__(self):
         return self
@@ -49,6 +53,7 @@ class Connection:
             # print(f"Sending message with length of {length}")
             length = length.to_bytes(self._PREFIX_BYTES, self._ENDIAN_TYPE)
             self._conn.send(length + message.encode('utf-8'))
+            self._send_count += 1
             return
         if isinstance(message, JchessMessage):
             # print(f"Send message of type {message.message_type}")
@@ -57,6 +62,7 @@ class Connection:
 
     def recv(self) -> JchessMessage:
         message_byte_len = int.from_bytes(self._conn.recv(self._PREFIX_BYTES), self._ENDIAN_TYPE)
+        self._recv_count += 1
         raw_message = self._conn.recv(message_byte_len).decode("utf-8")
         try:
             message = self._xml_parse.from_string(source=raw_message, clazz=JchessMessage)
@@ -64,3 +70,13 @@ class Connection:
             raise ConnectionDecodeError(message="", raw_message=raw_message) from e
         return message
 
+    @property
+    def send_count(self):
+        return self._send_count
+
+    @property
+    def recv_count(self):
+        return self._recv_count
+
+    def __str__(self):
+        return f"Connection to {self._address}:{self._port}"
