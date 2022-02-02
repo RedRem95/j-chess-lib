@@ -11,7 +11,7 @@ if __name__ == "__main__":
     with Connection("localhost", 5123) as connection1:
         with Connection("localhost", 5123) as connection2:
             ai1 = Random("RNJesus", min_turn_time=1)
-            ai2 = Random(min_turn_time=1)
+            ai2 = Random("RNJesus the second", min_turn_time=1)
 
             client1 = Client(connection=connection1, ai=ai1)
             client2 = Client(connection=connection2, ai=ai2)
