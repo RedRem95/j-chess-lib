@@ -1,11 +1,7 @@
 from dataclasses import dataclass
 
+from j_chess_lib.ai.board import BoardState
 from j_chess_lib.communication.schema import AwaitMoveMessage, MoveData
-
-
-@dataclass(frozen=True)
-class BoardState:
-    fen: str
 
 
 @dataclass(frozen=True)

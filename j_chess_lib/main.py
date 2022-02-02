@@ -6,12 +6,12 @@ if __name__ == "__main__":
 
     from j_chess_lib.communication import Connection
     from j_chess_lib.client import Client
-    from j_chess_lib.ai.Sample import SampleAI
+    from j_chess_lib.ai.examples import Random
 
     with Connection("localhost", 5123) as connection1:
         with Connection("localhost", 5123) as connection2:
-            ai1 = SampleAI()
-            ai2 = SampleAI()
+            ai1 = Random("RNJesus", min_turn_time=1)
+            ai2 = Random(min_turn_time=1)
 
             client1 = Client(connection=connection1, ai=ai1)
             client2 = Client(connection=connection2, ai=ai2)

@@ -4,7 +4,7 @@ from typing import Optional
 from uuid import UUID
 
 from j_chess_lib.ai import StoreAI
-from j_chess_lib.ai.Container import GameState
+from j_chess_lib.ai.container import GameState
 from j_chess_lib.communication import MoveData, MatchStatusData, MatchFormatData
 
 _logger = logging.getLogger("j_chess_lib")

@@ -1,10 +1,10 @@
 from typing import Callable
 from uuid import uuid4, UUID
 
-from j_chess_lib.communication import JchessMessage, JchessMessageType
-from j_chess_lib.communication.schema import GameStartMessage, GameOverMessage, MoveMessage, MoveData
 from j_chess_lib.ai import AI
-from j_chess_lib.ai.Container import GameState
+from j_chess_lib.ai.container import GameState
+from j_chess_lib.communication import JchessMessage, JchessMessageType
+from j_chess_lib.communication.schema import GameStartMessage, GameOverMessage, MoveMessage
 from .Match import Match
 
 
