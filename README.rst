@@ -24,12 +24,12 @@ To see the currently supported j-chess-xsd_ please see Documentation_
 Server and Communication xsd
 
 * Server:
-    .. image:: https://img.shields.io/github/license/JoKrus/j-chess-server?style=for-the-badge
-            :target: server-LICENSE_
+    * .. image:: https://img.shields.io/github/license/JoKrus/j-chess-server?style=for-the-badge
+    * See: https://github.com/JoKrus/j-chess-server/
     * Documentation: https://github.com/JoKrus/j-chess-server/wiki
 * Communication protocol:
-    .. image:: https://img.shields.io/github/license/JoKrus/j-chess-xsd?style=for-the-badge
-            :target: xsd-LICENSE_
+    * .. image:: https://img.shields.io/github/license/JoKrus/j-chess-xsd?style=for-the-badge
+    * See: https://github.com/JoKrus/j-chess-xsd/
     * Reference: https://github.com/JoKrus/j-chess-xsd
 
 
