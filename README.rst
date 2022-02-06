@@ -2,23 +2,35 @@
 j-chess-lib
 ===========
 
-.. image:: https://img.shields.io/github/license/RedRem95/j-chess-lib
+.. image:: https://img.shields.io/github/license/RedRem95/j-chess-lib?style=for-the-badge
         :target: https://github.com/RedRem95/j-chess-lib
 
-.. image:: https://img.shields.io/pypi/v/j_chess_lib.svg
+.. image:: https://img.shields.io/pypi/v/j_chess_lib.svg?style=for-the-badge
         :target: https://pypi.python.org/pypi/j_chess_lib
 
-.. image:: https://readthedocs.org/projects/j-chess-lib/badge/?version=latest
+.. image:: https://readthedocs.org/projects/j-chess-lib/badge/?version=latest&style=for-the-badge
         :target: https://j-chess-lib.readthedocs.io/en/latest/?version=latest
         :alt: Documentation Status
 
 
 Python library for a j-chess bot.
-This library provides an interface to connect to a j-chess-server_ and play some games with a self written bot
+This library provides an interface to connect to a j-chess-server_ and play some games with a self written bot.
+To see the currently supported j-chess-xsd_ please see Documentation_
 
 
 * Free software: GNU General Public License v3
 * Documentation: https://j-chess-lib.readthedocs.io.
+
+Server and Communication xsd
+
+* Server:
+    .. image:: https://img.shields.io/github/license/JoKrus/j-chess-server?style=for-the-badge
+            :target: server-LICENSE_
+    * Documentation: https://github.com/JoKrus/j-chess-server/wiki
+* Communication protocol:
+    .. image:: https://img.shields.io/github/license/JoKrus/j-chess-xsd?style=for-the-badge
+            :target: xsd-LICENSE_
+    * Reference: https://github.com/JoKrus/j-chess-xsd
 
 
 Features
@@ -27,6 +39,8 @@ Features
 * Easy connection to server
 * Interface to write a bot to play chess
     * Provides different interfaces with different complexity levels
+* Pre-implemented bot to play random moves
+* Basic generation for legal moves
 
 Install
 -------
@@ -110,8 +124,11 @@ Credits
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
 .. _j-chess-server: https://github.com/JoKrus/j-chess-server
+.. _server-LICENSE: https://github.com/JoKrus/j-chess-server/blob/master/LICENSE
 .. _j-chess-xsd: https://github.com/JoKrus/j-chess-xsd
+.. _xsd-LICENSE: https://github.com/JoKrus/j-chess-xsd/blob/master/LICENSE
 .. _JoKrus: https://github.com/JoKrus
 .. _xsdata: https://github.com/tefra/xsdata
 .. _Installation: https://j-chess-lib.readthedocs.io/en/latest/?version=latest
 .. _Usage: https://j-chess-lib.readthedocs.io/en/latest/?version=latest
+.. _Documentation: https://j-chess-lib.readthedocs.io/en/latest/?version=latest
