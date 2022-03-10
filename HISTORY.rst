@@ -23,4 +23,9 @@ History
 
 * Fixed setup.py so it automatically loads xsd and installs classes based on them
 
+0.7.0 (2022-03-10)
+------------------
+
+* Added tournament code to client
+
 
