@@ -104,7 +104,7 @@ setup(
     description="Python library for a j-chess bot. Beep Boop",
     install_requires=requirements,
     license="GNU General Public License v3",
-    long_description=readme + '\n\n' + history,
+    long_description=str(readme + '\n\n' + history).strip(),
     include_package_data=True,
     keywords='j_chess_lib',
     name='j_chess_lib',
