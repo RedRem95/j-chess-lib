@@ -14,9 +14,10 @@ _logger = logging.getLogger("j_chess_lib")
 
 class Client(threading.Thread):
 
-    def __init__(self, connection: Connection, ai: AI):
+    def __init__(self, connection: Connection, ai: AI, tournament_code: Optional[str] = None):
         self._id = uuid4()
         self._original_id = self._id
+        self._tournament_code = tournament_code
         self._ai = ai
         self._connection = connection
         self._send_queue: queue.Queue[JchessMessage] = queue.Queue()
@@ -122,7 +123,7 @@ class Client(threading.Thread):
         return message
 
     def _handle_login(self) -> Optional[UUID]:
-        login = LoginMessage(name=self.ai.name)
+        login = LoginMessage(name=self.ai.name, tournament_code=self._tournament_code)
         message = self.base_msg()
         message.login = login
         message.message_type = JchessMessageType.LOGIN

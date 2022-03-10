@@ -73,11 +73,13 @@ See below for an example to start the client with your ai
 
     with Connection(server_address, server_port) as connection:
         ai = SampleAI()
-        client = Client(connection=connection, ai=your_ai)
+        tournament_code = # Your optional UUID tournament code
+        client = Client(connection=connection, ai=your_ai, tournament_code=tournament_code)
         client.start()
         client.join()
 
 This example shows how to setup the connection and the client.
+The tournament code is optional and does not have to be passed. If None is passed none will be send to the server.
 The client is its own thread so you could for example start multiple clients parallel or do some other stuff. Like a gui...
 
 AI
