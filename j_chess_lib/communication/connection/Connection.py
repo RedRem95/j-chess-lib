@@ -61,9 +61,15 @@ class Connection:
         raise Exception(f"Can't send data of type {type(message)}")
 
     def recv(self) -> JchessMessage:
-        message_byte_len = int.from_bytes(self._conn.recv(self._PREFIX_BYTES), self._ENDIAN_TYPE)
+        len_msg = self._conn.recv(self._PREFIX_BYTES)
+        message_byte_len = int.from_bytes(len_msg, self._ENDIAN_TYPE)
         self._recv_count += 1
-        raw_message = self._conn.recv(message_byte_len).decode("utf-8")
+        rcv_msg = bytes()
+        while message_byte_len > 0:
+            new_rcv_msg = self._conn.recv(message_byte_len)
+            message_byte_len -= len(new_rcv_msg)
+            rcv_msg += new_rcv_msg
+        raw_message = rcv_msg.decode("utf-8")
         try:
             message = self._xml_parse.from_string(source=raw_message, clazz=JchessMessage)
         except ParserError as e:
