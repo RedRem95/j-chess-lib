@@ -112,7 +112,7 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/RedRem95/j_chess_lib',
-    version='0.7.1',
+    version='0.7.2',
     zip_safe=True,
     cmdclass=cmd_classes,
 )
