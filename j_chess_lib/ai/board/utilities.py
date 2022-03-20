@@ -1,3 +1,4 @@
+from copy import deepcopy
 from typing import List, Tuple, Dict, Optional, Callable, Set
 
 
@@ -39,6 +40,15 @@ def kill_king_move(board_state: Dict[Tuple[str, int], Optional[str]],
 def in_chess(board_state: Dict[Tuple[str, int], Optional[str]], white: bool) -> bool:
     opponent_moves = get_possible_moves(board_state=board_state, white=not white)
     return any(kill_king_move(board_state=board_state, move=x) for x in opponent_moves)
+
+
+def in_chess_after_move(board_state: Dict[Tuple[str, int], Optional[str]],
+                        move: Tuple[Tuple[str, int], Tuple[str, int]],
+                        white: bool) -> bool:
+    new_board = deepcopy(board_state)
+    new_board[move[1]] = board_state[move[0]]
+    del new_board[move[0]]
+    return in_chess(board_state=new_board, white=white)
 
 
 def is_promotion(board_state: Dict[Tuple[str, int], Optional[str]],

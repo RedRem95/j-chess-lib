@@ -7,7 +7,9 @@ from typing import Optional
 from uuid import UUID
 
 from j_chess_lib.ai import StoreAI
-from j_chess_lib.ai.board.utilities import get_possible_moves, kill_king_move, in_chess, is_promotion
+from j_chess_lib.ai.board.utilities import (
+    get_possible_moves, kill_king_move, in_chess, is_promotion, in_chess_after_move
+)
 from j_chess_lib.ai.container import GameState
 from j_chess_lib.communication import MoveData, MatchStatusData
 
@@ -39,7 +41,9 @@ class Random(StoreAI):
         ret = super().finalize_game(game_id, match_id, winner, pgn)
         if winner == self.name:
             logger.info(f"{self.name} won against {self.get_match(match_id=match_id)[0]}\n"
-                        f"{self._last_game_state.board_state.string()}")
+                        f"{self._last_game_state.board_state.string()}\n"
+                        f"PGN: {pgn.strip()}")
+        exit()
         return ret
 
     def get_move(self, game_id: UUID, match_id: UUID, game_state: GameState) -> MoveData:
@@ -72,12 +76,9 @@ class Random(StoreAI):
                     possible_moves = good_moves
             else:
                 good_moves = []
-                for move_f, move_t in possible_moves:
-                    new_board = deepcopy(board_state)
-                    new_board[move_t] = board_state[move_f]
-                    del new_board[move_f]
-                    if in_chess(board_state=new_board, white=not im_white):
-                        good_moves.append((move_f, move_t))
+                for move in possible_moves:
+                    if not in_chess_after_move(board_state=board_state, move=move, white=im_white):
+                        good_moves.append(move)
                 if len(good_moves) > 0:
                     possible_moves = good_moves
 
@@ -88,7 +89,7 @@ class Random(StoreAI):
 
         promotion = None
         if is_promotion(board_state=board_state, move=(taken_move_f, taken_move_t)):
-            promotion = "Q"
+            promotion = "Q" if im_white else "q"
 
         move_data = MoveData(from_value=from_value, to=to_value, promotion_unit=promotion)
 
@@ -96,7 +97,8 @@ class Random(StoreAI):
 
         logger.info(f"{self.name} found {len(possible_moves)} possible moves that would be nice. "
                     f"Calculation took {timedelta(seconds=end - start)}/{timedelta(seconds=game_state.your_time)}")
-        logger.info(f"{self.name} moves a \"{board_state[taken_move_f].upper()}\" {from_value}->{to_value}")
+        logger.info(f"{self.name} moves a \"{board_state[taken_move_f].upper()}\" {from_value}->{to_value}"
+                    f"{f' it becomes {promotion}' if promotion else ''}")
         if end - start < self._min_turn_time:
             time.sleep(self._min_turn_time - (end - start))
         return move_data

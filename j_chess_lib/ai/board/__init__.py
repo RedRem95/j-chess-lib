@@ -42,7 +42,7 @@ class BoardState:
 
 
 if __name__ == '__main__':
-    from j_chess_lib.ai.board.utilities import get_possible_moves, kill_king_move, is_promotion
+    from j_chess_lib.ai.board.utilities import get_possible_moves, kill_king_move, is_promotion, in_chess_after_move
 
     for fen in [
         # "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
@@ -52,7 +52,8 @@ if __name__ == '__main__':
         # "rnbqkbnr/pp1ppppp/8/3p4/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 1 2",
         # "rnbqkbnr/1ppppppp/8/p7/P7/8/1PPPPPPP/RNBQKBNR w KQkq - 1 2",
         # "rnbqkbnr/1ppppppp/8/p3Q3/P7/k7/1PPPPPPP/RNBQKBNR w KQkq - 1 2",
-        "8/4P3/8/8/8/3p4/4p3/8 b KQkq - 1 2",
+        # "8/4P3/8/8/8/3p4/4p3/8 b KQkq - 1 2",
+        "4k3/3p4/8/1B6/8/8/8/K7 b KQkq - 1 2"
     ]:
         board = BoardState(fen=fen)
         # pprint(board.get_board())
@@ -65,6 +66,6 @@ if __name__ == '__main__':
         print(f"  {' '.join(chr(x) for x in range(ord('a'), ord('h') + 1, 1))}")
         print("")
         moves = get_possible_moves(board_state=board.get_board(), white=board.white_turn())
-        print(len(moves), moves)
-        print([x for x in moves if kill_king_move(board_state=board.get_board(), move=x)])
-        print([x for x in moves if is_promotion(board_state=board.get_board(), move=x)])
+        print("All      ", len(moves), moves)
+        print("Kill King", [x for x in moves if kill_king_move(board_state=board.get_board(), move=x)])
+        print("Promotion", [x for x in moves if is_promotion(board_state=board.get_board(), move=x)])
