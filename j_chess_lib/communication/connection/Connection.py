@@ -54,7 +54,6 @@ class Connection:
             # print(f"Sending message with length of {length}")
             length = length.to_bytes(self._PREFIX_BYTES, self._ENDIAN_TYPE)
             self._conn.send(length + message.encode('utf-8'))
-            print(f"Send message {message}")
             self._send_count += 1
             return
         if isinstance(message, JchessMessage):
