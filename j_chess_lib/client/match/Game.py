@@ -39,3 +39,5 @@ class Game:
                 self._ai.finalize_game(game_id=self.id, match_id=self._match.id,
                                        winner=winner, pgn=message.game_over.pgn)
                 return message.game_over
+            else:
+                raise Exception(f"Unexpected message of {message.message_type}: {message}")

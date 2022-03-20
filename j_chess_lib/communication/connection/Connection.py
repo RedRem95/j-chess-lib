@@ -15,7 +15,8 @@ _logger = logging.getLogger("j_chess_lib")
 class ConnectionDecodeError(Exception):
 
     def __init__(self, message: str, raw_message: str):
-        message = f"Client failed to decode received message{': ' if len(message) > 0 else ''}{message}"
+        message = f"Client failed to decode received message{': ' if len(message) > 0 else ''}{message}\n" \
+                  f"Raw: {raw_message}"
         super().__init__(message)
         self._raw_message = raw_message
 
