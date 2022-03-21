@@ -1,7 +1,9 @@
+import logging
 from abc import ABC, abstractmethod
 from typing import Optional, Tuple, Dict, Any, List
 from uuid import UUID
 
+from j_chess_lib import logger as lib_logger
 from .container import GameState
 from ..communication.schema import MatchStatusData, MatchFormatData, MoveData
 
@@ -104,3 +106,66 @@ class StoreAI(AI, ABC):
             metrics.append(("   against", enemy))
             metrics.append(("   white player", f"{white_player} <- {'me' if white_player == self.name else 'enemy'}"))
         return metrics
+
+
+class VerboseAI(StoreAI, ABC):
+
+    def __init__(
+        self, name: str = None, verbose: bool = True, logger: logging.Logger = None, level: int = logging.INFO
+    ):
+        if logger is None:
+            logger = lib_logger
+        super().__init__(name=name)
+        self.verbose = verbose
+        self._logger = logger
+        self._level = level
+
+    @property
+    def logger(self):
+        return self._logger
+
+    def new_match(self, match_id: UUID, enemy: str, match_format: MatchFormatData):
+        super().new_match(match_id=match_id, enemy=enemy, match_format=match_format)
+        self._logger.log(
+            level=self._level,
+            msg=f"{self.name} starts a {match_format.match_type_value} match against {enemy} [{match_id}]"
+        )
+
+    def finalize_match(self, match_id: UUID, status: MatchStatusData, statistics: str):
+        super().finalize_match(match_id=match_id, status=status, statistics=statistics)
+        i_am_1 = status.name_player1 == self.name
+        my_score = status.score_player1 if i_am_1 else status.score_player2
+        enemy_score = status.score_player2 if i_am_1 else status.score_player1
+        name_enemy = status.name_player2 if i_am_1 else status.name_player1
+        self._logger.log(
+            level=self._level,
+            msg=f"{self.name} finished a match against {name_enemy}: {my_score} to {enemy_score} [{match_id}]"
+        )
+
+    def new_game(self, game_id: UUID, match_id: UUID, white_player: str):
+        super().new_game(game_id=game_id, match_id=match_id, white_player=white_player)
+        enemy = self.get_match(match_id=match_id)[0]
+        white = white_player == self.name
+        self._logger.log(
+            level=self._level,
+            msg=f"{self.name} starts a game against {enemy} as {'white' if white else 'black'} [{match_id}] [{game_id}]"
+        )
+
+    def finalize_game(self, game_id: UUID, match_id: UUID, winner: Optional[str], pgn: str):
+        enemy = self.get_match(match_id=match_id)[0]
+        result = 'winner' if winner == self.name else 'remis' if winner is None else 'loser'
+        pgn = "\n".join(f"│ {x}" for x in pgn.strip().split("\n"))
+        self._logger.log(
+            level=self._level,
+            msg=f"{self.name} finished a game against {enemy} as {result} [{match_id}] [{game_id}]\n"
+                f"┌{'─' * 15}\n"
+                f"{pgn}\n"
+                f"└{'─' * 15}"
+        )
+
+    def log_move(self, move_data: MoveData):
+        self.logger.log(
+            level=self._level,
+            msg=f"{self.name} moves from {move_data.from_value} to {move_data.to}"
+                f"{f' Promotion {move_data.promotion_unit}' if move_data.promotion_unit else ''}"
+        )
