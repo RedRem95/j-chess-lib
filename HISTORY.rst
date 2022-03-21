@@ -28,4 +28,18 @@ History
 
 * Added tournament code to client
 
+0.7.3 (2022-03-20)
+------------------
 
+* Implemented error messages on not supported messages
+* Fixed client not loading completed message when delay between packages is too big
+
+0.8.0 (2022-03-20)
+------------------
+
+* Added method to check if move results in the new board you beeing in chess
+
+0.9.0 (2022-03-21)
+------------------
+
+* Implemented Example AI that replays a loaded PGN. Automatically selects "path" from pgn matching player color
