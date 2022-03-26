@@ -1,6 +1,9 @@
 from copy import deepcopy
 from typing import List, Tuple, Dict, Optional, Callable, Set
 
+from j_chess_lib.ai.board import BoardState
+from j_chess_lib.communication import MoveData
+
 
 def _add(t1: Tuple[int, int], t2: Tuple[int, int]) -> Tuple[int, int]:
     return t1[0] + t2[0], t1[1] + t2[1]
@@ -175,3 +178,40 @@ _FUNCTIONS: Dict["str",
     "k": lambda o, b: _get_next_position_king(origin_position=o, board_state=b, white=False),
     "K": lambda o, b: _get_next_position_king(origin_position=o, board_state=b, white=True),
 }
+
+
+def predict_board(board: BoardState, move: MoveData) -> BoardState:
+    board_dict = board.get_board()
+    f = move.from_value[0], int(move.from_value[1])
+    t = move.to[0], int(move.to[1])
+
+    board_dict[t] = board_dict[f]
+    del board_dict[f]
+    if move.promotion_unit:
+        board_dict[t] = move.promotion_unit.upper() if board.white_turn() else move.promotion_unit.lower()
+
+    fen = board_to_fen(board=board_dict, fen_tail=board.fen.split(" ", maxsplit=1)[-1])
+    return BoardState(fen=fen)
+
+
+def board_to_fen(board: Dict[Tuple[str, int], Optional[str]], fen_tail: str) -> str:
+    fen_tail = fen_tail.strip()
+    ret = []
+
+    for r in range(8, 1 - 1, -1):
+        cc = 0
+        for c in range(0, 8, 1):
+            c = chr(c + ord("a"))
+            p = (c, r)
+            if p in board:
+                if cc > 0:
+                    ret.append(cc)
+                cc = 0
+                ret.append(board[p])
+            else:
+                cc += 1
+        if cc > 0:
+            ret.append(cc)
+        ret.append("/")
+
+    return f'{"".join(str(x) for x in ret)} {fen_tail}'
