@@ -43,3 +43,13 @@ History
 ------------------
 
 * Implemented Example AI that replays a loaded PGN. Automatically selects "path" from pgn matching player color
+
+0.9.1 (2022-03-26)
+------------------
+
+* Is promotion Method now returns False on non valid moves
+
+0.10.0 (2022-03-26)
+------------------
+
+* Added methods to predict boards and create fen notation from boards
