@@ -53,10 +53,14 @@ def in_chess_after_move(board_state: Dict[Tuple[str, int], Optional[str]],
 
 def is_promotion(board_state: Dict[Tuple[str, int], Optional[str]],
                  move: Tuple[Tuple[str, int], Tuple[str, int]]) -> bool:
-    f, t = move
-    white = board_state[f].isupper()
-    target_row = 8 if white else 1
-    return board_state[f] in ("p", "P") and t[1] == target_row
+    try:
+        f, t = move
+        white = board_state[f].isupper()
+        from_row = 7 if white else 2
+        target_row = 8 if white else 1
+        return board_state[f] in ("p", "P") and t[1] == target_row and f[1] == from_row
+    except KeyError as e:
+        return False
 
 
 def get_next_position(
