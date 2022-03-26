@@ -63,7 +63,7 @@ class Random(VerboseAI):
 
         promotion = None
         if is_promotion(board_state=board_state, move=(taken_move_f, taken_move_t)):
-            promotion = ("Q" if im_white else "q").lower()
+            promotion = "Q" if im_white else "q"
 
         move_data = MoveData(from_value=from_value, to=to_value, promotion_unit=promotion)
 

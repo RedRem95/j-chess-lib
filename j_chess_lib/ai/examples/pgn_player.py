@@ -49,7 +49,7 @@ class PGNPlayer(VerboseAI):
             el1 = re.split(r"[x-]", el1)
             el2 = re.split(r"[x-]", el2)
 
-            promo1 = None if '=' not in el1[1] else el1[1].split("=")[-1].lower()
+            promo1 = None if '=' not in el1[1] else el1[1].split("=")[-1].upper()
             promo2 = None if '=' not in el2[1] else el2[1].split("=")[-1].lower()
 
             white_move = (el1[0][-2:], el1[1][:2], promo1)
