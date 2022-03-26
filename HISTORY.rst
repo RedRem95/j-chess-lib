@@ -53,3 +53,8 @@ History
 -------------------
 
 * Added methods to predict boards and create fen notation from boards
+
+0.10.2 (2022-03-26)
+-------------------
+
+* Fixed pgn analysis when white moved last
