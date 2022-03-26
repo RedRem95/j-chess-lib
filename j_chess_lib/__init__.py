@@ -2,12 +2,16 @@
 import logging
 import sys
 
-logger = logging.getLogger("j_chess_lib")
+logging.basicConfig(level=logging.INFO)
+
 logger_handler = logging.StreamHandler(stream=sys.stderr)
 logger_formatter = logging.Formatter('{asctime} - {levelname:^8s} - {message}', "%Y-%m-%d %H:%M:%S", "{")
 logger_handler.setFormatter(fmt=logger_formatter)
-logger.addHandler(logger_handler)
+logging.getLogger().handlers = []
+logging.getLogger().addHandler(logger_handler)
 FORMAT = '{asctime} - {levelname:8s} - {message}s'
+
+logger = logging.getLogger("j_chess_lib")
 
 from .communication import schema_version
 
