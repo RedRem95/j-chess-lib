@@ -50,7 +50,10 @@ class PGNPlayer(VerboseAI):
         pgn = pgn.strip().splitlines()[-1]
         pgn_split = [x for x in (y.strip() for y in re.split(r"\d+\.", pgn)) if len(x) > 0]
         for el in pgn_split:
-            el1, el2, *_ = el.split(" ")
+            try:
+                el1, el2, *_ = el.split(" ")
+            except ValueError:
+                break
             el1 = re.split(r"[x-]", el1)
             el2 = re.split(r"[x-]", el2)
 
