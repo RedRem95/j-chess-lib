@@ -58,3 +58,8 @@ History
 -------------------
 
 * Fixed pgn analysis when white moved last
+
+0.10.3 (2022-03-27)
+-------------------
+
+* Fixed bug in PGNPlayer with empty pgn
