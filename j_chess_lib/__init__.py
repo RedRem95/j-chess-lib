@@ -16,7 +16,7 @@ logger = logging.getLogger("j_chess_lib")
 from .communication import schema_version
 
 __author__ = """RedRem95"""
-__version__ = '0.10.2'
+__version__ = '0.10.3'
 __schema_version__ = schema_version
 
 logger.info(f"Loading j-chess-lib v-{__version__} by {__author__}. Using schema-version v-{schema_version}")
